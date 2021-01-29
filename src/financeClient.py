@@ -14,6 +14,9 @@ class FinanceClient:
         stock = stockquotes.Stock(symbol)
         print(stock.current_price)
 
+    def getChart_weekly(self):
+        pass
+
 # Starts the client 
 # @params: iexToken (str)
 def getFinanceClient(iexToken):
