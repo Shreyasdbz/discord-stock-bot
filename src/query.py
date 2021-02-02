@@ -4,7 +4,7 @@ class Query:
     def __init__(self, actionType, symbol):
         self.action = actionType
         self.symbol = symbol
-        self.period = consts.STOCK_CHART_NONE
+        self.period = consts.STOCK_CHARTS_PERIODS[0]
         self.optionsDate = ""
         self.showVolume = False
         self.showInfo = False
