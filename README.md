@@ -13,6 +13,9 @@ Python based discord bot that respond to simple queries for ticker symbols.
 - \$TSLA 1W volume
   Chart for the period (volume)
 
+- \$TSLA options 2020-05-20
+  Calls & Puts options chain for that date
+
 - \$TESLA info
   Company information
 

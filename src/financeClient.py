@@ -12,7 +12,7 @@ class FinanceClient:
     # @params: symbol name (str)
     def getCurrentPrice(self, symbol):
         stock = stockquotes.Stock(symbol)
-        print(stock.current_price)
+        return stock.current_price
 
     def getChart_weekly(self):
         pass

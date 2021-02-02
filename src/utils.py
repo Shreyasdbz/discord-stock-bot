@@ -1,4 +1,5 @@
 from datetime import datetime
+from src import consts
 
 # Get the type of market hours right now
 # @params: none
@@ -14,3 +15,7 @@ def getMarketHours():
 # Returns: True if valid / False if invalid
 def isValidChannel(channelId):
     return True
+
+
+def parseChartPeriod(text):
+    return consts.STOCK_CHART_NONE
