@@ -8,3 +8,9 @@ def getMarketHours():
     # 2) Check hours 
     print(datetime.utcnow())
     pass
+
+# Checks from database if the channel is valid or not
+# @params: channel id
+# Returns: True if valid / False if invalid
+def isValidChannel(channelId):
+    return True

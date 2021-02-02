@@ -1,21 +1,39 @@
 import discord
+from src import utils
+from src import parser
 
-# Custom version of the discord client that will handle all communication
-# @params:  discord client (discord client type)
-class DiscordClient(discord.Client):
-
-    # Runs whenever an initial connection is established
-    async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
-
-    # Runs whenever a new message is received
-    async def on_message(self, message):        
-        print(message)
-
-# Funtion that starts the client. Startpoint for the majority of the program
-# @params: discordToken (str)
-#          iexToken (str)
+# ------------------------------------------------------
+# Primary function that is the entry point for the program
+# Handles all discord's event driven functions
+# @params: discordToken (string)
+#          iexToken (string)
+# Return:  none
+# ------------------------------------------------------
 def runClient(discordToken, iexToken):
-    dc = DiscordClient()
-    dc.run(discordToken)
+    # 
+    # Initialize the discord client
+    client = discord.Client()
 
+    # 
+    # Runs when the client gets online for the first time
+    @client.event
+    async def on_ready():
+        # Setting `Watching ` status
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you ... 👀"))
+        print("Discord bot client has started ...")
+
+    # 
+    # Runs when a new message is received (no matter what guild/channel/type of message)
+    @client.event
+    async def on_message(message: discord.message.Message):
+        if(message.author != client.user):
+            # Check from database if the channel has been added to allowed channels
+            if(utils.isValidChannel(message.channel.id)):
+                actionType = ""
+                # Use finance client here to figure out reply
+                pass
+            
+
+    # 
+    # Run the client in listening mode
+    client.run(discordToken)
