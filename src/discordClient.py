@@ -52,6 +52,9 @@ def runClient(discordToken, iexToken):
                     print("---------------------------")
                     await message.channel.send("{} is at ${}".format(qr.symbol, currentPrice))
 
+                # -- Get information about a company
+                elif(qr.action == consts.ACTION_INFO):
+                    finance.getInfo(qr.symbol)
 
     # 
     # Run the client in listening mode
