@@ -39,19 +39,30 @@ def runClient(discordToken, iexToken):
 
                 # -- No action, keep listening
                 if(qr.action == consts.ACTION_TYPE_NONE):
-                    print("---------------------------")
+                    pass
 
                 if(qr.action == consts.ACTION_TYPE_MSG):
                     print("The message is: {}".format(qr.message))
-                    print("---------------------------")
 
                 # -- Send a simple stock price message
                 elif(qr.action == consts.ACTION_STOCK_QUERY):
-                    currentPrice = finance.getCurrentPrice(qr.symbol)
-                    print(currentPrice)
-                    print("---------------------------")
-                    await message.channel.send("{} is at ${}".format(qr.symbol, currentPrice))
+                    sendMsg = finance.getCurrentPrice(qr.symbol)
+                    
 
+                # -- Get information about a company
+                # ~TODO~
+                elif(qr.action == consts.ACTION_INFO):
+                    finance.getInfo(qr.symbol)
+
+                # -- Get a price chart of a stock for a specific period
+                # ~TODO~
+                elif(qr.action == consts.ACTION_INFO):
+                    finance.getChart_price(qr.symbol, qr.period)
+
+                # -- Get a volume chart of a stock for a specific period
+                # ~TODO~
+                elif(qr.action == consts.ACTION_INFO):
+                    finance.getChart_volume(qr.symbol, qr.period)
 
     # 
     # Run the client in listening mode
