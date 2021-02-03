@@ -2,6 +2,8 @@ import pyEX as px
 import yfinance as yf
 import stockquotes as sq
 
+from src import utils
+
 # Serves as the api for getting finance queries answered
 # @params: iexToken (str)
 class FinanceClient:
@@ -38,12 +40,25 @@ class FinanceClient:
     def getPriceTarget(self, symbol):
         pass
 
-    # Simply returns some information about a company
+    # Provides some aggregated news about a company
     # @params: symbol name (str)
     # Returns: arr[string]
     def getNews(self, symbol):
         pass
 
+    # Gives back a candle chart of specific period of a stock's price
+    # @params: symbol name (str)
+    # Returns: arr[string]
+    def getChart_price(self, symbol, period):
+        pass
+
+    # Gives back a chart of specific period of a stock's volume
+    # @params: symbol name (str)
+    # Returns: arr[string]
+    def getChart_volume(self, symbol, period):
+        pass
+
+    
 
 
 # -------------------------------
