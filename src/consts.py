@@ -18,3 +18,8 @@ ACTION_OPTIONS = "ACTION_OPTIONS"
 
 # Stock Charts Periods
 STOCK_CHARTS_PERIODS = ["1d", "3d", "5d", "1w", "1m", "3m", "1y", "5y", "max"]
+
+# Stock Green/Red Colors
+COLOR_POSITIVE = 0x02d963
+COLOR_NEGATIVE = 0xd90231
+COLOR_NEUTRAL = 0X02a3d9

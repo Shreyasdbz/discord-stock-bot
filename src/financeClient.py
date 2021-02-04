@@ -3,6 +3,7 @@ import yfinance as yf
 import stockquotes as sq
 
 from src import utils
+from src import result
 
 # Serves as the api for getting finance queries answered
 # @params: iexToken (str)
@@ -14,20 +15,27 @@ class FinanceClient:
 
     # Simply returns the price of the symbol provided
     # @params: symbol name (str)
-    # Returns: arr[string]
+    # Returns: currentPrice (float)
     def getCurrentPrice(self, symbol):
-        stock = sq.Stock(symbol)
-        rtnArr = []
-        rtnArr.append("The price for {} is:".format(symbol.upper()))
-        rtnArr.append("${}".format(stock.current_price))
-        return rtnArr
+        stockQ = sq.Stock(symbol)
+        stockY = yf.Ticker(symbol)
+        res = result.Result(symbol=symbol)
+        res.price = stockQ.current_price
+        lastClose = stockY.info['previousClose']
+        res.percentChange = utils.getPercentChange(res.price, lastClose)
+        res.color = utils.getStockColor(res.price, lastClose)
+        return res
 
     # Returns some information about a company
     # @params: symbol name (str)
     # Returns: arr[string]
     def getInfo(self, symbol):
-        stock = yf.Ticker(symbol)
-        print(stock.recommendations)
+        stockQ = sq.Stock(symbol)
+        stockY = yf.Ticker(symbol)
+        info = stockY.info
+        res = result.Result(symbol=symbol)
+        res.color = utils.getStockColor(
+            currentPrice=stockQ.current_price, lastClose=info['previousClose'])
         pass
 
     # Provides the next earnings date and last earnings' result

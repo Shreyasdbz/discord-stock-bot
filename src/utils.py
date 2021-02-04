@@ -22,3 +22,26 @@ def getMarketHours():
     # 2) Check hours
     print(datetime.utcnow())
     pass
+
+
+# Based on if the stock is +/-, return corrosponding color
+# @params: currentPrice(float)
+#          last closing price
+# Returns: color (const)
+def getStockColor(currentPrice, lastClose):
+    if(currentPrice >= lastClose):
+        return consts.COLOR_POSITIVE
+    elif(currentPrice < lastClose):
+        return consts.COLOR_NEGATIVE
+    else:
+        return consts.COLOR_NEUTRAL
+
+
+# Get the % change for the day
+# @params: currentPrice(float)
+#          last close (float)
+# Returns: percentChange (float)
+def getPercentChange(currentPrice, lastClose):
+    change = ((currentPrice - lastClose)/lastClose)*100
+    change = round(change, 2)
+    return change

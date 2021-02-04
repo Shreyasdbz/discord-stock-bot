@@ -43,12 +43,17 @@ def runClient(discordToken, iexToken):
                 if(qr.action == consts.ACTION_TYPE_NONE):
                     pass
 
+                # -- Error message to send back to the user
                 if(qr.action == consts.ACTION_TYPE_MSG):
                     print("The message is: {}".format(qr.message))
 
                 # -- Send a simple stock price message
                 elif(qr.action == consts.ACTION_STOCK_QUERY):
-                    sendMsg = finance.getCurrentPrice(qr.symbol)
+                    res = finance.getCurrentPrice(qr.symbol)
+                    send = discord.Embed(color=res.color)
+                    send.add_field(name="{} is currently at:".format(
+                        res.symbol.upper()), value="${}  ({}% day)".format(res.price, res.percentChange), inline=False)
+                    await message.channel.send(embed=send)
 
                 # -- Get information about a company
                 # ~TODO~
