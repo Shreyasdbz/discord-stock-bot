@@ -6,6 +6,8 @@ from src import utils
 
 # Serves as the api for getting finance queries answered
 # @params: iexToken (str)
+
+
 class FinanceClient:
     def __init__(self, iexToken):
         self.client = px.Client(api_token=iexToken, version="v1")
@@ -58,11 +60,9 @@ class FinanceClient:
     def getChart_volume(self, symbol, period):
         pass
 
-    
-
 
 # -------------------------------
-# Starts the client 
+# Starts the client
 # @params: iexToken (str)
 def getFinanceClient(iexToken):
     client = FinanceClient(iexToken)

@@ -11,6 +11,8 @@ from src import consts
 #          iexToken (string)
 # Return:  none
 # ------------------------------------------------------
+
+
 def runClient(discordToken, iexToken):
 
     # Initialize the discord client
@@ -18,7 +20,7 @@ def runClient(discordToken, iexToken):
     # Finance client to get data from
     finance = financeClient.getFinanceClient(iexToken)
 
-    # 
+    #
     # Runs when the client gets online for the first time
     @client.event
     async def on_ready():
@@ -26,7 +28,7 @@ def runClient(discordToken, iexToken):
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you ... 👀"))
         print("Discord bot client has started ...")
 
-    # 
+    #
     # Runs when a new message is received (no matter what guild/channel/type of message)
     @client.event
     async def on_message(message: discord.message.Message):
@@ -47,7 +49,6 @@ def runClient(discordToken, iexToken):
                 # -- Send a simple stock price message
                 elif(qr.action == consts.ACTION_STOCK_QUERY):
                     sendMsg = finance.getCurrentPrice(qr.symbol)
-                    
 
                 # -- Get information about a company
                 # ~TODO~
@@ -64,6 +65,6 @@ def runClient(discordToken, iexToken):
                 elif(qr.action == consts.ACTION_INFO):
                     finance.getChart_volume(qr.symbol, qr.period)
 
-    # 
+    #
     # Run the client in listening mode
     client.run(discordToken)

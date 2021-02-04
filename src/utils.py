@@ -6,6 +6,8 @@ from src import consts
 # Checks from database if the channel is valid or not
 # @params: channel id
 # Returns: True if valid / False if invalid
+
+
 def isValidChannel(channelId):
     return True
 
@@ -17,7 +19,6 @@ def isValidChannel(channelId):
 # Returns: Market hours types (string consts)
 def getMarketHours():
     # 1) Check date to compare against holidays / weekends
-    # 2) Check hours 
+    # 2) Check hours
     print(datetime.utcnow())
     pass
-

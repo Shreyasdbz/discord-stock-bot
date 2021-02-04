@@ -9,4 +9,3 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 IEX_TOKEN = os.getenv("IEX_TOKEN")
 
 discordClient.runClient(DISCORD_TOKEN, IEX_TOKEN)
-

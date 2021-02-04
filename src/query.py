@@ -1,5 +1,6 @@
 from src import consts
 
+
 class Query:
     def __init__(self, actionType, symbol):
         self.action = actionType

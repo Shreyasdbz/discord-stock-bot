@@ -18,7 +18,3 @@ ACTION_OPTIONS = "ACTION_OPTIONS"
 
 # Stock Charts Periods
 STOCK_CHARTS_PERIODS = ["1d", "3d", "5d", "1w", "1m", "3m", "1y", "5y", "max"]
-
-
-
-
