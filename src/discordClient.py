@@ -45,14 +45,16 @@ def runClient(discordToken, iexToken):
 
                 # -- Error message to send back to the user
                 if(qr.action == consts.ACTION_TYPE_MSG):
-                    print("The message is: {}".format(qr.message))
+                    send = discord.Embed(color=consts.COLOR_NEUTRAL)
+                    send.add_field(name="Error:", value="{}".format(qr.message))
+                    await message.channel.send(embed=send)
 
                 # -- Send a simple stock price message
                 elif(qr.action == consts.ACTION_STOCK_QUERY):
                     res = finance.getCurrentPrice(qr.symbol)
                     send = discord.Embed(color=res.color)
-                    send.add_field(name="{} is currently at:".format(
-                        res.symbol.upper()), value="${}  ({}% day)".format(res.price, res.percentChange), inline=False)
+                    send.add_field(name="{}:  ${}".format(
+                        res.symbol.upper(), res.price), value="{}% for the day".format(res.percentChange), inline=False)
                     await message.channel.send(embed=send)
 
                 # -- Get information about a company
@@ -62,12 +64,12 @@ def runClient(discordToken, iexToken):
 
                 # -- Get a price chart of a stock for a specific period
                 # ~TODO~
-                elif(qr.action == consts.ACTION_INFO):
+                elif(qr.action == consts.ACTION_CHART):
                     finance.getChart_price(qr.symbol, qr.period)
 
                 # -- Get a volume chart of a stock for a specific period
                 # ~TODO~
-                elif(qr.action == consts.ACTION_INFO):
+                elif(qr.action == consts.ACTION_CHART_VOLUME):
                     finance.getChart_volume(qr.symbol, qr.period)
 
     #
