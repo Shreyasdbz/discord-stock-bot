@@ -78,13 +78,13 @@ def getMessageType(message):
                     return qr_7
                 except:
                     qr_else_7 = query.Query(consts.ACTION_TYPE_MSG, symbol)
-                    qr_else_7.message = "Invalid date for options on {}".format(
-                        symbol)
+                    qr_else_7.message = "Invalid date for options on ${}".format(
+                        symbol.upper())
                     return qr_else_7
 
             else:
                 qr_else = query.Query(consts.ACTION_TYPE_MSG, symbol)
-                qr_else.message = "Invalid action on {}".format(symbol)
+                qr_else.message = "Invalid action on ${}".format(symbol.upper())
                 return qr_else
 
     else:

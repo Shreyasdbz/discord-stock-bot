@@ -1,3 +1,4 @@
+import pandas as pd
 import pyEX as px
 import yfinance as yf
 import stockquotes as sq
@@ -60,6 +61,11 @@ class FinanceClient:
     # @params: symbol name (str)
     # Returns: arr[string]
     def getChart_price(self, symbol, period):
+        stockY = yf.Ticker(symbol)
+        hist =  stockY.history(period=period)
+        print(hist)
+        hist.to_csv()
+        
         pass
 
     # Gives back a chart of specific period of a stock's volume
