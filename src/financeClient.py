@@ -9,7 +9,6 @@ from src import result
 # Serves as the api for getting finance queries answered
 # @params: iexToken (str)
 
-
 class FinanceClient:
     def __init__(self, iexToken):
         self.client = px.Client(api_token=iexToken, version="v1")
@@ -25,6 +24,7 @@ class FinanceClient:
         lastClose = stockY.info['previousClose']
         res.percentChange = utils.getPercentChange(res.price, lastClose)
         res.color = utils.getStockColor(res.price, lastClose)
+        a = 1+1
         return res
 
     # Returns some information about a company
