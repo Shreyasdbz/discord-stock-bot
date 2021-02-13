@@ -4,3 +4,4 @@ class Result:
         self.price = 0
         self.color = ""
         self.percentChange = 0
+        self.message = ""
