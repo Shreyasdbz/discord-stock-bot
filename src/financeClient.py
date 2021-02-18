@@ -1,7 +1,10 @@
+import os
 import pandas as pd
 import pyEX as px
 import yfinance as yf
 import stockquotes as sq
+import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 
 from src import utils
 from src import result
@@ -9,6 +12,8 @@ from src import result
 # Serves as the api for getting finance queries answered
 # @params: iexToken (str)
 
+path = os.getcwd()
+os.chdir(path)
 class FinanceClient:
     def __init__(self, iexToken):
         self.client = px.Client(api_token=iexToken, version="v1")
@@ -62,10 +67,18 @@ class FinanceClient:
     # Returns: arr[string]
     def getChart_price(self, symbol, period):
         stockY = yf.Ticker(symbol)
-        hist =  stockY.history(period=period)
-        print(hist)
-        hist.to_csv()
-        
+        hist_df =  stockY.history(period=period)
+        hist_df.reset_index(level=0, inplace=True)
+        fig = go.Figure(data=[go.Candlestick(x=hist_df['Date'],
+            open=hist_df['Open'], high=hist_df['High'],
+            low=hist_df['Low'], close=hist_df['Close'])
+                      ])
+        fig.update_layout(
+            title='{} Stock'.format(symbol),
+            yaxis_title='Price (USD)')
+        plt.savefig('getChart_price.png', transparent=True)
+        plt.close()
+       # hist.to_csv()
         pass
 
     # Gives back a chart of specific period of a stock's volume

@@ -72,6 +72,11 @@ def runClient(discordToken, iexToken):
                 elif(qr.action == consts.ACTION_CHART_VOLUME):
                     finance.getChart_volume(qr.symbol, qr.period)
 
+                # -- Get candle chart of a stock for a specific period
+                # ~TODO~
+                elif(qr.action == consts.ACTION_CHART_VOLUME):
+                    finance.getChart_volume(qr.symbol, qr.period)
+
     #
     # Run the client in listening mode
     client.run(discordToken)
