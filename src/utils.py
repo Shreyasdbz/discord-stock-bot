@@ -45,3 +45,8 @@ def getPercentChange(currentPrice, lastClose):
     change = ((currentPrice - lastClose)/lastClose)*100
     change = round(change, 2)
     return change
+
+
+def getFormattedLargeNumber(largeNum):
+    num = "{:,}".format(largeNum)
+    return num

@@ -1,4 +1,6 @@
+import os
 import discord
+from discord import embeds
 from src import financeClient
 from src import parser
 from src import utils
@@ -46,7 +48,8 @@ def runClient(discordToken, iexToken):
                 # -- Error message to send back to the user
                 if(qr.action == consts.ACTION_TYPE_MSG):
                     send = discord.Embed(color=consts.COLOR_NEUTRAL)
-                    send.add_field(name="Error:", value="{}".format(qr.message))
+                    send.add_field(
+                        name="Error:", value="{}".format(qr.message))
                     await message.channel.send(embed=send)
 
                 # -- Send a simple stock price message
@@ -57,20 +60,32 @@ def runClient(discordToken, iexToken):
                         res.symbol.upper(), res.price), value="{}% for the day".format(res.percentChange), inline=False)
                     await message.channel.send(embed=send)
 
+                    imagePath = os.path.join('src', 'images', 'stonks.png')
+                    await message.channel.send(file=discord.File(imagePath))
+
                 # -- Get information about a company
                 # ~TODO~
                 elif(qr.action == consts.ACTION_INFO):
-                    finance.getInfo(qr.symbol)
+                    res = finance.getInfo(qr.symbol)
+                    send = discord.Embed(
+                        title="{} ~ ${}".format(res.companyName, res.price), description=res.companyDesc, color=res.color)
+                    send.set_image(url=res.logoUrl)
+                    for i in range(len(res.infoFields_labels)):
+                        send.add_field(name="{}:".format(
+                            res.infoFields_labels[i]), value="{}".format(res.infoFields_values[i]), inline=False)
+                    await message.channel.send(embed=send)
 
                 # -- Get a price chart of a stock for a specific period
                 # ~TODO~
                 elif(qr.action == consts.ACTION_CHART):
-                    finance.getChart_price(qr.symbol, qr.period)
+                    res = finance.getChart_price(qr.symbol, qr.period)
+                    await message.channel.send(file=discord.File(res.chartImage_path))
 
                 # -- Get a volume chart of a stock for a specific period
                 # ~TODO~
                 elif(qr.action == consts.ACTION_CHART_VOLUME):
-                    finance.getChart_volume(qr.symbol, qr.period)
+                    res = finance.getChart_volume(qr.symbol, qr.period)
+                    await message.channel.send(file=discord.File(res.chartImage_path))
 
     #
     # Run the client in listening mode
