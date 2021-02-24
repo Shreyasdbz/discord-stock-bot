@@ -6,3 +6,8 @@ class Result:
         self.percentChange = 0
         self.message = ""
         self.chartImage_path = ""
+        self.infoFields_labels = []
+        self.infoFields_values = []
+        self.logoUrl = ""
+        self.companyName = ""
+        self.companyDesc = ""

@@ -1,5 +1,6 @@
 import os
 import discord
+from discord import embeds
 from src import financeClient
 from src import parser
 from src import utils
@@ -65,7 +66,14 @@ def runClient(discordToken, iexToken):
                 # -- Get information about a company
                 # ~TODO~
                 elif(qr.action == consts.ACTION_INFO):
-                    finance.getInfo(qr.symbol)
+                    res = finance.getInfo(qr.symbol)
+                    send = discord.Embed(
+                        title="{} ~ ${}".format(res.companyName, res.price), description=res.companyDesc, color=res.color)
+                    send.set_image(url=res.logoUrl)
+                    for i in range(len(res.infoFields_labels)):
+                        send.add_field(name="{}:".format(
+                            res.infoFields_labels[i]), value="{}".format(res.infoFields_values[i]), inline=False)
+                    await message.channel.send(embed=send)
 
                 # -- Get a price chart of a stock for a specific period
                 # ~TODO~
