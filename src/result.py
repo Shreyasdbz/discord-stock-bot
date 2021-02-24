@@ -5,3 +5,4 @@ class Result:
         self.color = ""
         self.percentChange = 0
         self.message = ""
+        self.chartImage_path = ""

@@ -1,3 +1,4 @@
+import os
 import discord
 from src import financeClient
 from src import parser
@@ -46,7 +47,8 @@ def runClient(discordToken, iexToken):
                 # -- Error message to send back to the user
                 if(qr.action == consts.ACTION_TYPE_MSG):
                     send = discord.Embed(color=consts.COLOR_NEUTRAL)
-                    send.add_field(name="Error:", value="{}".format(qr.message))
+                    send.add_field(
+                        name="Error:", value="{}".format(qr.message))
                     await message.channel.send(embed=send)
 
                 # -- Send a simple stock price message
@@ -57,6 +59,9 @@ def runClient(discordToken, iexToken):
                         res.symbol.upper(), res.price), value="{}% for the day".format(res.percentChange), inline=False)
                     await message.channel.send(embed=send)
 
+                    imagePath = os.path.join('src', 'images', 'stonks.png')
+                    await message.channel.send(file=discord.File(imagePath))
+
                 # -- Get information about a company
                 # ~TODO~
                 elif(qr.action == consts.ACTION_INFO):
@@ -65,12 +70,14 @@ def runClient(discordToken, iexToken):
                 # -- Get a price chart of a stock for a specific period
                 # ~TODO~
                 elif(qr.action == consts.ACTION_CHART):
-                    finance.getChart_price(qr.symbol, qr.period)
+                    res = finance.getChart_price(qr.symbol, qr.period)
+                    await message.channel.send(file=discord.File(res.chartImage_path))
 
                 # -- Get a volume chart of a stock for a specific period
                 # ~TODO~
                 elif(qr.action == consts.ACTION_CHART_VOLUME):
-                    finance.getChart_volume(qr.symbol, qr.period)
+                    res = finance.getChart_volume(qr.symbol, qr.period)
+                    await message.channel.send(file=discord.File(res.chartImage_path))
 
     #
     # Run the client in listening mode
