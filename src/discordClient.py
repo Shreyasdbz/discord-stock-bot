@@ -59,9 +59,9 @@ def runClient(discordToken, iexToken):
                     send.add_field(name="{}:  ${}".format(
                         res.symbol.upper(), res.price), value="{}% for the day".format(res.percentChange), inline=False)
                     await message.channel.send(embed=send)
-
-                    imagePath = os.path.join('src', 'images', 'stonks.png')
-                    await message.channel.send(file=discord.File(imagePath))
+                    # Test Image send
+                    # imagePath = os.path.join('src', 'images', 'stonks.png')
+                    # await message.channel.send(file=discord.File(imagePath))
 
                 # -- Get information about a company
                 # ~TODO~
